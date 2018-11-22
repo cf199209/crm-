@@ -1,0 +1,54 @@
+大目标：CRM系统
+        - 权限
+        - stark组件
+        - crm业务
+
+步骤：
+    1、创建django project  luffy_permission
+    2、两个app
+        - rbac，权限管理组件
+        - web，销售管理系统
+    3、app：rbac
+        - 将权限相关的表编写到此app的models.py中
+    4、app：web
+        - 将销售管理系统表写到此app的models.py中
+        - 销售系统的业务相关代码
+
+    5、两个app的整合
+        销售管理系统中的URL：
+        客户管理
+            客户列表：/customer/list/
+            添加客户：/customer/add/
+            删除客户：/customer/list/(?P<cid>\d+)/
+            修改客户：/customer/edit/(?P<cid>\d+)/
+            批量导入：/customer/import/
+            下载模板：/customer/tpl/
+
+        账单管理
+            账单列表：/payment/list/
+            添加账单：/payment/add/
+            删除账单：/payment/del/(?P<pid>\d+)/
+            修改账单：/payment/edit/<?P<pid>\d+/
+
+        5.1 基于admin权限信息的录入
+        5.2 基于admin进行权限和角色信息的分配
+
+    6、快速完成一个基本权限控制
+        6.1 登录页面是否有权限访问(白名单)
+        6.2 POST请求，用户登录检验是否合法
+        6.3 获取当前用户所有的权限并放入session中
+        6.4 再次向服务端发请求，后端编写中间件对用户当前访问的url进行权限的判断（是否在session中）
+
+    7、功能完善,将权限相关的功能放到rbac应用下
+        a.用户登录和权限初始化的拆分
+        b.配置文件的应用
+
+    总结：6-7属于进行权限控制
+    8、动态菜单的功能
+        - 一级菜单
+            - 问题：如何实现动态显示一级菜单
+                a.表结构修改+录入菜单数据
+                b.获取菜单信息并保存到session
+                c.模板中显示菜单信息
+                    - inclusion_tag
+        - 二级菜单
